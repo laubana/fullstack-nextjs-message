@@ -1,36 +1,24 @@
-import sql from "better-sqlite3";
-// TODO
-// 189
-// import { cache as nextCache } from "next/cache";
-// 188
-// import { cache as reactCache } from "react";
+import { unstable_cache as nextCache } from "next/cache";
+import { cache as reactCache } from "react";
+import { connect } from "@configs/db";
+import Message from "@models/message";
 
-const db = new sql("data.db");
+export const addMessage = async (text) => {
+  await connect();
 
-function initDb() {
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS messages (
-      id INTEGER PRIMARY KEY, 
-      text TEXT
-    )`);
-}
+  const newMessage = await Message.create({ text });
 
-initDb();
+  return newMessage;
+};
 
-export function addMessage(message) {
-  db.prepare("INSERT INTO messages (text) VALUES (?)").run(message);
-}
+export const getMessages = nextCache(
+  reactCache(async () => {
+    await connect();
 
-// TODO
-// 189
-// export const getMessages = nextCache(
-// 188
-// reactCache(() => {
-export async function getMessages() {
-  console.log("Fetching messages from db");
-  return db.prepare("SELECT * FROM messages").all();
-}
-//   }),
-//   ["Messages"],
-//   { revalidate: 5, tags: ["Messages"] }
-// );
+    const existingMessages = await Message.find();
+
+    return existingMessages;
+  }),
+  ["messages"],
+  { tags: ["msg"] }
+);

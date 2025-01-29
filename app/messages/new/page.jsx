@@ -8,9 +8,8 @@ export default () => {
 
     const message = formData.get("message");
 
-    addMessage(message);
-    revalidatePath("/messages", "page");
-    revalidateTag("Messages");
+    await addMessage(message);
+    revalidateTag("msg");
     redirect("/messages");
   };
 
