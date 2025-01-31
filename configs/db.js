@@ -1,15 +1,13 @@
 import mongoose from "mongoose";
 
-import "../models/message";
+import "@models/message";
 
 export const connect = async () => {
   try {
-    if (process.env.DB_URI) {
-      await mongoose.connect(process.env.DB_URI);
-    } else {
-      console.error("DB not connected.");
-    }
+    await mongoose.connect(process.env.DB_URI);
   } catch (error) {
-    console.error(error);
+    console.log(error);
+
+    console.error("Failed to connect to DB 🚨");
   }
 };
