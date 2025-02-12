@@ -2,7 +2,7 @@ import { unstable_cache as nextCache } from "next/cache";
 import { cache as reactCache } from "react";
 
 import { connect } from "@configs/db";
-import Message from "@models/message";
+import Message from "@models/Message";
 
 export const addMessage = async (text) => {
   await connect();
@@ -16,7 +16,7 @@ export const getMessages = nextCache(
   reactCache(async () => {
     await connect();
 
-    const existingMessages = await Message.find();
+    const existingMessages = await Message.find().lean();
 
     return existingMessages;
   }),

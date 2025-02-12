@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-import "@models/message";
+import "@models/Message";
 
 export const connect = async () => {
   try {

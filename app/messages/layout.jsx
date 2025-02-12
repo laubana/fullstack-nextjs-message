@@ -1,4 +1,4 @@
-import { getMessages } from "@services/messages";
+import { getMessages } from "@services/message";
 
 export default async ({ children }) => {
   const messages = await getMessages();

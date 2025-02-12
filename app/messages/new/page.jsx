@@ -1,7 +1,7 @@
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
-import { addMessage } from "@services/messages";
+import { addMessage } from "@services/message";
 
 export default () => {
   const createMessage = async (formData) => {

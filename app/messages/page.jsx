@@ -1,5 +1,5 @@
 import Messages from "@components/Messages/Messages";
-import { getMessages } from "@services/messages";
+import { getMessages } from "@services/message";
 
 export default async () => {
   const messages = await getMessages();
